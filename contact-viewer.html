@@ -17,23 +17,40 @@
 	<body>
 		<div data-role="page" id="home-page">
 			<div data-role="header">
+				<a data-role="button" data-rel="new">New Contact</a>
 				<h1>Contacts</h1>
 
-			</div>				
+			</div>
 			<div data-role="content">
 				<ul data-role="listview" id="contactlist">
 
 				</ul>
 			</div>
 		</div>
+
 		<div data-role="page" id="details-page">
 			<div data-role="header">
-			<a data-role="button" data-rel="back">Back</a>
+				<a data-role="button" data-rel="back">Back</a>
 				<h1>Contact Details</h1>
 
-			</div>				
+			</div>
 			<div data-role="content">
 				<p class="contact-details"></p>
+			</div>
+		</div>
+
+		<div data-role="page" id="edit-page">
+			<div data-role="header">
+				<h1>Edit Contact</h1>
+
+			</div>
+			<div data-role="content">
+				<p class="contact-name-edit"></p>
+				<p class="contact-title-edit"></p>
+				<p class="contact-phone-edit"></p>
+				<p class="contact-email-edit"></p>
+				<p class="contact-twitter-edit"></p>
+				
 			</div>
 		</div>
 	</body>
