@@ -57,6 +57,11 @@ $(document).on('pagebeforeshow','#edit-page', function(){
 
 $(document).on('click','#create-contact-button',function(){
 	_contactid = null
+	$('#contact-name-edit').val("")
+	$('#contact-phone-edit').val("")
+	$('#contact-title-edit').val("")
+	$('#contact-twitter-edit').val("")
+	$('#contact-email-edit').val("")
 })
 
   
