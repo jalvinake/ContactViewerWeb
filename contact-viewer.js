@@ -31,4 +31,6 @@ $(document).on('pagebeforeshow','#details-page', function(){
 	$('.contact-email').text(contact.email)
 })
 
-
+$(document).on('pagebeforeshow','#edit-page', function(){
+	
+})
