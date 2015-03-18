@@ -32,5 +32,13 @@ $(document).on('pagebeforeshow','#details-page', function(){
 })
 
 $(document).on('pagebeforeshow','#edit-page', function(){
+	if(_contactid != null) {
+		var contact = _contacts[_contactid]
+		$('#contact-name-edit').val(contact.name)
+		$('#contact-phone-edit').val(contact.phone)
+		$('#contact-title-edit').val(contact.title)
+		$('#contact-twitter-edit').val(contact.twitterId)
+		$('#contact-email-edit').val(contact.email)
+	}
 	
 })
