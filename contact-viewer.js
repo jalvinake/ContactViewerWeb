@@ -30,3 +30,4 @@ $(document).on('pagebeforeshow','#details-page', function(){
 	$('.contact-twitter').text(contact.twitterId)
 	$('.contact-email').text(contact.email)
 })
+
