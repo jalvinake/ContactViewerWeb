@@ -5,7 +5,7 @@ var _apiKey = 'totally'
 
 $(document).on('pagebeforeshow','#home-page', function(){
 	var contactList = $('#contactlist')
-	$.get('http://contacts.tinyapollo.com/contacts?key=' + _apiKey, 
+	$.get('http://contacts.tinyapollo.com/contacts?key=' + _apiKey,
 	function(result){
 		for(i in result.contacts){
 			var contact = result.contacts[i]
