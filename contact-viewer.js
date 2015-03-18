@@ -35,11 +35,11 @@ $(document).on('pagebeforeshow','#details-page', function(){
 
   newContactData = function() {
     return {
-      name: $('.contact-name-edit').val(),
-      phone: $('.contact-phone-edit').val(),
-      title: $('.contact-title-edit').val(),
-      twitterId: $('.contact-twitter-edit').val(),
-      email: $('.contact-email-edit').val()
+      name: $('#contact-name-edit').val(),
+      phone: $('#contact-phone-edit').val(),
+      title: $('#contact-title-edit').val(),
+      twitterId: $('#contact-twitter-edit').val(),
+      email: $('#contact-email-edit').val()
     };
   };
   
