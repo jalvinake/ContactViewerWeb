@@ -24,5 +24,9 @@ $(document).on('click','#contactlist a', function(){
 
 $(document).on('pagebeforeshow','#details-page', function(){
 	var contact = _contacts[_contactid]
-	$('.contact-details').text(contact.name + ' details')
+	$('.contact-name').text(contact.name)
+	$('.contact-phone').text(contact.phone)
+	$('.contact-title').text(contact.title)
+	$('.contact-twitter').text(contact.twitterId)
+	$('.contact-email').text(contact.email)
 })
