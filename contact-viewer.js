@@ -2,21 +2,16 @@ var _contacts = {}
 var _contactid = null;
 
 var _apiKey = 'totally'
-var _restUrl = 'http://contacts.tinyapollo.com/contacts?key=' + _apiKey
+var _rootUrl = 'http://contacts.tinyapollo.com/contacts'
 var _isCreate = false; 
+var _restUrl = _rootUrl + '?key=' + _apiKey
 
 $(document).on('pagebeforeshow','#home-page', function(){
-	var contactList = $('#contactlist')
-	$.get(_restUrl,
-	function(result){
-		for(i in result.contacts){
-			var contact = result.contacts[i]
-			_contacts[contact._id] = contact
-			contactList.append('<li><a href="#details-page" data-contact-id="' +contact._id+'"><h3>'+contact.name+'</h3><p>'+contact.title+'</p></a></li>')
-		}
-		contactList.listview('refresh')
-	})
+	refreshPage();
 })
+
+
+
 
 $(document).on('click','#contactlist a', function(){
 	var link = $(this)
@@ -98,6 +93,8 @@ $(document).on('click','#save-button', function(){
 	data: data,
 	success: function(data) {
         if (data.status === 'success') {
+		  refreshPage();
+
           return false;
         } else {
           return alert(data.message);
@@ -106,3 +103,35 @@ $(document).on('click','#save-button', function(){
       });
     });
 
+$(document).on('click','#delete-button', function(){
+    var data,item;
+    var actionUrl = _rootUrl + "/" + _contactid + "?key=" + _apiKey;  
+	console.log(actionUrl)
+    $.ajax({
+	type: "DELETE",
+	url: actionUrl,
+	success: function(data) {
+        if (data.status === 'success') {
+          refreshPage();
+          alert('here');
+          return false;
+        } else {
+          return alert(data.message);
+        }},
+	dataType: 'json'
+      });
+    });
+
+function refreshPage(){
+	_contacts = {};
+	var contactList = $('#contactlist')
+	$.get(_restUrl,
+	function(result){
+		for(i in result.contacts){
+			var contact = result.contacts[i]
+			_contacts[contact._id] = contact
+			contactList.append('<li><a href="#details-page" data-contact-id="' +contact._id+'"><h3>'+contact.name+'</h3><p>'+contact.title+'</p></a></li>')
+		}
+		contactList.listview('refresh')
+	})
+}
