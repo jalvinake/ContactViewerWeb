@@ -38,17 +38,6 @@ $(document).on('pagebeforeshow','#details-page', function(){
     };
   };
   
-    updateContactData = function() {
-    return {
-      _id: _contactid,
-      name: $('#contact-name-edit').val(),
-      phone: $('#contact-phone-edit').val(),
-      title: $('#contact-title-edit').val(),
-      twitterId: $('#contact-twitter-edit').val(),
-      email: $('#contact-email-edit').val()
-    };
-  };
-  
 $(document).on('pagebeforeshow','#edit-page', function(){
 	if(_contactid != null) {
 		var contact = _contacts[_contactid]
@@ -74,22 +63,22 @@ $(document).on('click','#create-contact-button',function(){
 
   
 $(document).on('click','#save-button', function(){
-    var data, item, ajaxType;  
+    var data, item, ajaxType, url;  
     data = newContactData();
     
     if (_isCreate) {
-	data = newContactData();
-	ajaxType = "PUT"
-    }else{
-	data = updateContactData();
 	ajaxType = "POST"
+	url = _restUrl
+    }else{
+	ajaxType = "PUT"
+	url =  _rootUrl + "/" + _contactid + "?key=" + _apiKey; 
     }
     _isCreate = false;
     
       console.log(data)
       $.ajax({
 	type: ajaxType,
-	url: _restUrl,
+	url: url,
 	data: data,
 	success: function(data) {
         if (data.status === 'success') {
