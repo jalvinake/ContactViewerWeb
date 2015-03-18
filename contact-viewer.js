@@ -75,7 +75,7 @@ $(document).on('click','#save-button', function(){
 	data: data,
 	success: function(data) {
         if (data.status === 'success') {
-          return true;
+          return false;
         } else {
           return alert(data.message);
         }},
