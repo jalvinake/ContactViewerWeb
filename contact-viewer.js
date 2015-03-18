@@ -55,6 +55,10 @@ $(document).on('pagebeforeshow','#edit-page', function(){
 	
 })
 
+$(document).on('click','#create-contact-button',function(){
+	_contactid = null
+})
+
   
 $(document).on('click','#save-button', function(){
     var data, item;  
