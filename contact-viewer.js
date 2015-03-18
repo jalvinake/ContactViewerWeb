@@ -2,10 +2,12 @@ var _contacts = {}
 var _contactid = null;
 
 var _apiKey = 'totally'
+var _restUrl = 'http://contacts.tinyapollo.com/contacts?key=' + _apiKey
+
 
 $(document).on('pagebeforeshow','#home-page', function(){
 	var contactList = $('#contactlist')
-	$.get('http://contacts.tinyapollo.com/contacts?key=' + _apiKey,
+	$.get(_restUrl,
 	function(result){
 		for(i in result.contacts){
 			var contact = result.contacts[i]
@@ -30,3 +32,46 @@ $(document).on('pagebeforeshow','#details-page', function(){
 	$('.contact-twitter').text(contact.twitterId)
 	$('.contact-email').text(contact.email)
 })
+
+  newContactData = function() {
+    return {
+      name: $('#contact-name-edit').val(),
+      phone: $('#contact-phone-edit').val(),
+      title: $('#contact-title-edit').val(),
+      twitterId: $('#contact-twitter-edit').val(),
+      email: $('#contact-email-edit').val()
+    };
+  };
+  
+$(document).on('pagebeforeshow','#edit-page', function(){
+	if(_contactid != null) {
+		var contact = _contacts[_contactid]
+		$('#contact-name-edit').val(contact.name)
+		$('#contact-phone-edit').val(contact.phone)
+		$('#contact-title-edit').val(contact.title)
+		$('#contact-twitter-edit').val(contact.twitterId)
+		$('#contact-email-edit').val(contact.email)
+	}
+	
+})
+
+  
+$(document).on('click','#save-button', function(){
+    var data, item;  
+    data = newContactData();
+      console.log(data)
+      $.ajax({
+	type: "POST",
+	url: _restUrl,
+	data: data,
+	success: function(data) {
+        if (data.status === 'success') {
+          return true;
+        } else {
+          return alert(data.message);
+        }},
+	dataType: 'json'
+      });
+    });
+
+
