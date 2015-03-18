@@ -31,6 +31,6 @@ $(document).on('pagebeforeshow','#details-page', function(){
 	$('.contact-email').text(contact.email)
 })
 
-$.(document).on('click','#edit-contact', function(){
-	
+$(document).on('click','#edit-contact a', function(){
+	var link = $(this)
 })

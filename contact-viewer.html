@@ -17,7 +17,7 @@
 	<body>
 		<div data-role="page" id="home-page">
 			<div data-role="header">
-				<a data-role="button">New Contact</a>
+				<a data-role="button" data-rel="new">New Contact</a>
 				<h1>Contacts</h1>
 
 			</div>
@@ -31,7 +31,7 @@
 		<div data-role="page" id="details-page">
 			<div data-role="header">
 				<a data-role="button" data-rel="back">Back</a>
-				<a data-role="button" id="edit_contact">Edit</a>
+				<a data-role="button" id="edit-contact">Edit</a>
 				<h1>Contact Details</h1>
 
 			</div>
@@ -50,22 +50,18 @@
 			
 		</div>
 
-		<div data-role="page" id="create-page">
+		<div data-role="page" id="edit-page">
 			<div data-role="header">
-				<h1>Create Contact</h1>
+				<h1>Edit Contact</h1>
+
 			</div>
 			<div data-role="content">
-				<h3>Name</h3>
-				<input class="contact-name-edit" />
-				<h3>Title</h3>
-				<input class="contact-title-edit" />
-				<h3>Phone</h3>
-				<input class="contact-phone-edit" />
-				<h3>Email</h3>
-				<input class="contact-email-edit" />
-				<h3>Twitter Handle</h3>
-				<input class="contact-twitter-edit" />
-				<a data-role="button" >Save</a>
+				<p class="contact-name-edit"></p>
+				<p class="contact-title-edit"></p>
+				<p class="contact-phone-edit"></p>
+				<p class="contact-email-edit"></p>
+				<p class="contact-twitter-edit"></p>
+				
 			</div>
 		</div>
 	</body>
