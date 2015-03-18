@@ -102,7 +102,6 @@ $(document).on('click','#delete-button', function(){
 	success: function(data) {
         if (data.status === 'success') {
           refreshPage();
-          alert('here');
           return false;
         } else {
           return alert(data.message);
@@ -114,6 +113,7 @@ $(document).on('click','#delete-button', function(){
 function refreshPage(){
 	_contacts = {};
 	var contactList = $('#contactlist')
+	contactList.empty()
 	$.get(_restUrl,
 	function(result){
 		for(i in result.contacts){
