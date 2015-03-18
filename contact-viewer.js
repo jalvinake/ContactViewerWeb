@@ -3,7 +3,7 @@ var _contactid = null;
 
 var _apiKey = 'totally'
 var _restUrl = 'http://contacts.tinyapollo.com/contacts?key=' + _apiKey
-
+var _isCreate = false; 
 
 $(document).on('pagebeforeshow','#home-page', function(){
 	var contactList = $('#contactlist')
@@ -43,6 +43,17 @@ $(document).on('pagebeforeshow','#details-page', function(){
     };
   };
   
+    updateContactData = function() {
+    return {
+      _id: _contactid,
+      name: $('#contact-name-edit').val(),
+      phone: $('#contact-phone-edit').val(),
+      title: $('#contact-title-edit').val(),
+      twitterId: $('#contact-twitter-edit').val(),
+      email: $('#contact-email-edit').val()
+    };
+  };
+  
 $(document).on('pagebeforeshow','#edit-page', function(){
 	if(_contactid != null) {
 		var contact = _contacts[_contactid]
@@ -57,6 +68,7 @@ $(document).on('pagebeforeshow','#edit-page', function(){
 
 $(document).on('click','#create-contact-button',function(){
 	_contactid = null
+	_isCreate = true;
 	$('#contact-name-edit').val("")
 	$('#contact-phone-edit').val("")
 	$('#contact-title-edit').val("")
@@ -64,13 +76,24 @@ $(document).on('click','#create-contact-button',function(){
 	$('#contact-email-edit').val("")
 })
 
+
   
 $(document).on('click','#save-button', function(){
-    var data, item;  
+    var data, item, ajaxType;  
     data = newContactData();
+    
+    if (_isCreate) {
+	data = newContactData();
+	ajaxType = "PUT"
+    }else{
+	data = updateContactData();
+	ajaxType = "POST"
+    }
+    _isCreate = false;
+    
       console.log(data)
       $.ajax({
-	type: "POST",
+	type: ajaxType,
 	url: _restUrl,
 	data: data,
 	success: function(data) {
@@ -82,5 +105,4 @@ $(document).on('click','#save-button', function(){
 	dataType: 'json'
       });
     });
-
 
