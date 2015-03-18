@@ -50,6 +50,15 @@ $(document).on('pagebeforeshow','#edit-page', function(){
 	
 })
 
+$(document).on('click','#create-contact-button',function(){
+	_contactid = null
+	$('#contact-name-edit').val("")
+	$('#contact-phone-edit').val("")
+	$('#contact-title-edit').val("")
+	$('#contact-twitter-edit').val("")
+	$('#contact-email-edit').val("")
+})
+
   
 $(document).on('click','#save-button', function(){
     var data, item;  
@@ -61,8 +70,9 @@ $(document).on('click','#save-button', function(){
 	data: data,
 	success: function(data) {
         if (data.status === 'success') {
-          refreshPage();
-          return true;
+		  refreshPage();
+
+          return false;
         } else {
           return alert(data.message);
         }},
