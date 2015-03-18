@@ -6,7 +6,7 @@ var _rootUrl = 'http://contacts.tinyapollo.com/contacts'
 var _isCreate = false; 
 var _restUrl = _rootUrl + '?key=' + _apiKey
 
-$(document).on('pagebeforeshow','#home-page', function(){
+$(document).on('pagecreate','#home-page', function(){
 	refreshPage();
 })
 
