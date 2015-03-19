@@ -3,11 +3,22 @@ var _contactid = null;
 
 var _apiKey = 'totally'
 var _rootUrl = 'http://contacts.tinyapollo.com/contacts'
-var _isCreate = false; 
+var _isCreate = false;
 var _restUrl = _rootUrl + '?key=' + _apiKey
 
-$(document).on('pagecreate','#home-page', function(){
-	refreshPage();
+$(document).on('pagebeforeshow','#home-page', function(){
+	_contacts = {};
+	var contactList = $('#contactlist')
+	contactList.empty()
+	$.get(_restUrl,
+	function(result){
+		for(i in result.contacts){
+			var contact = result.contacts[i]
+			_contacts[contact._id] = contact
+			contactList.append('<li><a href="#details-page" data-contact-id="' +contact._id+'"><h3>'+contact.name+'</h3><p>'+contact.title+'</p></a></li>')
+		}
+		contactList.listview('refresh')
+	})
 })
 
 
@@ -37,7 +48,7 @@ $(document).on('pagebeforeshow','#details-page', function(){
       email: $('#contact-email-edit').val()
     };
   };
-  
+
 $(document).on('pagebeforeshow','#edit-page', function(){
 	if(_contactid != null) {
 		var contact = _contacts[_contactid]
@@ -47,7 +58,7 @@ $(document).on('pagebeforeshow','#edit-page', function(){
 		$('#contact-twitter-edit').val(contact.twitterId)
 		$('#contact-email-edit').val(contact.email)
 	}
-	
+
 })
 
 $(document).on('click','#create-contact-button',function(){
@@ -61,30 +72,28 @@ $(document).on('click','#create-contact-button',function(){
 })
 
 
-  
+
 $(document).on('click','#save-button', function(){
-    var data, item, ajaxType, url;  
+    var data, item, ajaxType, url;
     data = newContactData();
-    
+
     if (_isCreate) {
 	ajaxType = "POST"
 	url = _restUrl
     }else{
 	ajaxType = "PUT"
-	url =  _rootUrl + "/" + _contactid + "?key=" + _apiKey; 
+	url =  _rootUrl + "/" + _contactid + "?key=" + _apiKey;
     }
     _isCreate = false;
-    
-      console.log(data)
+
       $.ajax({
 	type: ajaxType,
 	url: url,
 	data: data,
 	success: function(data) {
         if (data.status === 'success') {
-		  refreshPage();
-
-          return false;
+		  $(':mobile-pagecontainer').pagecontainer('change', '#home-page')
+          return true;
         } else {
           return alert(data.message);
         }},
@@ -94,33 +103,17 @@ $(document).on('click','#save-button', function(){
 
 $(document).on('click','#delete-button', function(){
     var data,item;
-    var actionUrl = _rootUrl + "/" + _contactid + "?key=" + _apiKey;  
-	console.log(actionUrl)
+    var actionUrl = _rootUrl + "/" + _contactid + "?key=" + _apiKey;
     $.ajax({
 	type: "DELETE",
 	url: actionUrl,
 	success: function(data) {
         if (data.status === 'success') {
-          refreshPage();
-          return false;
+          $(':mobile-pagecontainer').pagecontainer('change', '#home-page')
+          return true;
         } else {
           return alert(data.message);
         }},
 	dataType: 'json'
       });
     });
-
-function refreshPage(){
-	_contacts = {};
-	var contactList = $('#contactlist')
-	contactList.empty()
-	$.get(_restUrl,
-	function(result){
-		for(i in result.contacts){
-			var contact = result.contacts[i]
-			_contacts[contact._id] = contact
-			contactList.append('<li><a href="#details-page" data-contact-id="' +contact._id+'"><h3>'+contact.name+'</h3><p>'+contact.title+'</p></a></li>')
-		}
-		contactList.listview('refresh')
-	})
-}
